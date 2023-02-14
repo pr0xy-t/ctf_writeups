@@ -29,7 +29,7 @@ uf2というファイルフォーマットについて知らなかったのでuf
 ![](./img/ghidra1.png)
 ![](./img/ghidra2.png)
 
-Ghidraの解析結果を眺めていると、firmware.binにはデバッグ情報が残っていて[raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk)を使って開発されたものだと分かります。
+Ghidraの解析結果を眺めていると、firmware.binにはデバッグ情報が一部残っていて[raspberrypi/pico-sdk](https://github.com/raspberrypi/pico-sdk)を使って開発されたものだと分かります。
 pico-sdkの実行フローは[この記事](https://qiita.com/yunkya2/items/5f0f5ebb0f26a52805d9#sdk%E3%81%B8%E3%82%B8%E3%83%A3%E3%83%B3%E3%83%97)が非常に参考になりました。
 
 pico-sdkでは開発者がmain関数を定義できるようなので、main関数を特定します。
