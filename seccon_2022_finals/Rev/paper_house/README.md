@@ -25,7 +25,7 @@ uf2というファイルフォーマットについて知らなかったのでuf
 
 システム概要図に書いてあったraspberry pi picoについて調べると、picoはxipモードというモードで動作させると[flashメモリが0x10000000〜](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf#2.6.3.%20Flash)にマッピングされると書いてあったので、firmware.binはpicoのflashメモリに保存されるプログラムデータだとわかりました。
 
-[Memory Map](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf#2.2.%20Address%20Map)を参考にして、↓のようにghidraにロードしました。
+[Memory Map](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf#2.2.%20Address%20Map)を参考にして、firmware.binを↓のようにghidraにロードしました。
 ![](./img/ghidra1.png)
 ![](./img/ghidra2.png)
 
@@ -39,7 +39,7 @@ pico-sdkでは開発者がmain関数を定義できるようなので、main関�
 とあるように、0x10000100にMSP, 0x10000104にPC(flashメモリ中の最初に実行されるアドレス)が保存されています。
 
 0x10000104のアドレスには0x100001f7が保存されていたので、0x100001f7が[SDKのスタートアップコード(crt0.S)](https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_standard_link/crt0.S#L221)と分かりました。
-(↓の画像のように0x100001f7〜のコードの解析結果とcrt0.Sのソースコードが完全に一致)
+(↓の画像のように0x100001f6〜のコードの解析結果とcrt0.Sのソースコードが完全に一致。※ 0x100001f6〜コードはthumb命令のためアドレスが1ズレている。)
 
 
 ![](./img/ghidra3.png "0x100001f7〜のコードの解析結果とcrt0.Sのソースコードが完全に一致")
